@@ -1,9 +1,50 @@
-#content {
+h1 {
+    font-family: 'sofia-pro', sans-serif;
+    text-align: center;
+    letter-spacing: 0.5em;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#unique{
+    font-family: "Open Sans";
+    font-size: 22px;
+}
+
+p {
+    font-family: 'Apercu Pro', sans-serif;
+    src: url('ApercuPro.eot');
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 29.9999px;
+    padding: 10px;
+}
+
+#container {
   margin-left: auto;
   margin-right: auto;
-  width: 650px;
+  width: 985px;
 }
 
 #greeting-container {
   margin-top: 20px;
+}
+
+#contact {
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 10px;
+    padding-top: 15px;
+    width: 985px;
+    height: 32px;
+}
+
+h4 {
+    font-family: 'sofia-pro', sans-serif;
+    font-size: 20px;
+}
+
+img {
+    padding-right: 5px;
+    padding-bottom:10px;
 }
