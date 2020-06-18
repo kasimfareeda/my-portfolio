@@ -27,8 +27,17 @@ function addRandomGreeting() {
   greetingContainer.innerText = greeting;
 }
 
-async function getContent() {
-    const response = await fetch('/data');
-    const quote = await response.text();
-    document.getElementById('comments').innerText = quote;
+async function getComment() {
+    fetch('/data').then(response => response.json()).then((myObject) => {
+  console.log(myObject.Name);
+  console.log(myObject.College);
+  console.log(myObject.Time);
+  console.log(myObject.Comment);
+
+  const message = myObject.Name + " " + myObject.College + " " + myObject.Time + " " + myObject.Comment;
+  const commentsContainer = document.getElementById('comment-section');
+  commentsContainer.innerHTML += message;
+});
 }
+
+
