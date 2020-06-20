@@ -2,4 +2,5 @@
 
 This repo contains Fareeda's portfolio and SPS projects.
 
-Enjoy looking through all the amazing content!
+- Personal portfolio made with HTML, JS, CSS hosted on gcloud.
+
