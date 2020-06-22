@@ -39,5 +39,3 @@ async function getComment() {
   commentsContainer.innerHTML += message;
 });
 }
-
-
