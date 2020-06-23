@@ -40,12 +40,7 @@ public class DataServlet extends HttpServlet {
 
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
       // Get the input from the form.
-      String name = getParameter(request, "name", "Anonymous");
       String comment = getParameter(request, "comment", "");
-      String link = getParameter(request, "link", "");
-
-      strings.add(name);
-      strings.add(link);
       strings.add(comment);
 
       // Redirect back to the HTML page.
@@ -53,16 +48,8 @@ public class DataServlet extends HttpServlet {
   }
 
   private String convertToJson(ArrayList<String> strings) {
-    String json = "{";
-    json += "\"Name\": ";
-    json += "\"" + strings.get(0) + "\"";
-    json += ", ";
-    json += "\"Link\": ";
-    json += "\"" + strings.get(1) + "\"";
-    json += ", ";
-    json += "\"Comment\": ";
-    json += "\"" + strings.get(2) + "\"";
-    json += "}";
+    Gson gson = new Gson();
+    String json = gson.toJson(strings);
     return json;
   }
 

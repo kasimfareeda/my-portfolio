@@ -29,12 +29,18 @@ function addRandomGreeting() {
 
 async function getComment() {
     fetch('/data').then(response => response.json()).then((myObject) => {
-        console.log(myObject);
         const commentsContainer = document.getElementById('comment-section');
-        const title = myObject.Name + " left a comment: ";
-        const comment = myObject.Comment;
-        commentsContainer.innerHTML += "<br>" + title + "<br>";
-        commentsContainer.innerHTML += comment;
+        myObject.forEach((comment) => {
+            console.log(comment);
+            commentsContainer.appendChild(createListElement(comment));
+        });
 });
+}
+
+/** Creates an <li> element containing text. */
+function createListElement(text) {
+  const liElement = document.createElement('li');
+  liElement.innerText = text;
+  return liElement;
 }
 
