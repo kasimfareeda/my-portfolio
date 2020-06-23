@@ -14,6 +14,7 @@
 
 package com.google.sps.servlets;
 
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,17 +28,28 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
+    ArrayList<String> strings = new ArrayList<String>();
+
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-    ArrayList<String> strings = new ArrayList<String>();
-    strings.add("Hello");
-    strings.add("I");
-    strings.add("am");
-    strings.add("Fareeda");
-
+    
     response.setContentType("application/json;");
     response.getWriter().println(convertToJson(strings));
+  }
+
+
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+      // Get the input from the form.
+      String name = getParameter(request, "name", "Anonymous");
+      String comment = getParameter(request, "comment", "");
+      String link = getParameter(request, "link", "");
+
+      strings.add(name);
+      strings.add(link);
+      strings.add(comment);
+
+      // Redirect back to the HTML page.
+      response.sendRedirect("/index.html");
   }
 
   private String convertToJson(ArrayList<String> strings) {
@@ -45,15 +57,24 @@ public class DataServlet extends HttpServlet {
     json += "\"Name\": ";
     json += "\"" + strings.get(0) + "\"";
     json += ", ";
-    json += "\"College\": ";
+    json += "\"Link\": ";
     json += "\"" + strings.get(1) + "\"";
     json += ", ";
-    json += "\"Time\": ";
-    json += "\"" + strings.get(2) + "\"";
-    json += ", ";
     json += "\"Comment\": ";
-    json += "\"" + strings.get(3) + "\"";
+    json += "\"" + strings.get(2) + "\"";
     json += "}";
     return json;
+  }
+
+  /**
+   * @return the request parameter, or the default value if the parameter
+   *         was not specified by the client
+   */
+  private String getParameter(HttpServletRequest request, String name, String defaultValue) {
+    String value = request.getParameter(name);
+    if (value == null) {
+      return defaultValue;
+    }
+    return value;
   }
 }
