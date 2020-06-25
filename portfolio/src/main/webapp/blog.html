@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Fareeda Kasim</title>
+        <link rel="stylesheet" href="blog-style.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Playfair+Display" rel="stylesheet">
+        <script src="script.js"></script>
+    </head>
+    <body>
+        <ul class="header">
+            <a href="/index.html"><li> &larr; Back home</li></a>
+        </ul>
+        <h1 id="main-title">Blog</h1>
+        <div id="upload-section">
+          <form action="/data" method="POST" target="_self">
+              <p> I hope you enjoyed looking through my blog. Feel free to updoad a picture or two! </p>
+              <label>Upload image</label><br>
+              <input type="file" name="upload" placeholder="Upload your image" required class="fields"/>
+              <label>Caption</label><br>
+              <input type="text" name="caption" placeholder="Type a caption" class="fields"/>
+              <br>
+              <input type="submit" class="submit-button"/>
+              <br><br>
+          </form>
+      </div>
+    </body>
+</html>
