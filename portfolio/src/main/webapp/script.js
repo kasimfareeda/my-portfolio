@@ -30,3 +30,15 @@ function createDivElement(text1, text2) {
   return divElement;
 }
 
+function fetchBlobstoreUrlAndShowForm() {
+  fetch('/blog')
+      .then((response) => {
+        return response.text();
+      })
+      .then((imageUploadUrl) => {
+        const messageForm = document.getElementById('image-form');
+        messageForm.action = imageUploadUrl;
+        messageForm.classList.remove('my-form');
+      });
+}
+
