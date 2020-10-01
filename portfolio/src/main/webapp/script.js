@@ -30,15 +30,44 @@ function createDivElement(text1, text2) {
   return divElement;
 }
 
-function fetchBlobstoreUrlAndShowForm() {
-  fetch('/blog')
-      .then((response) => {
-        return response.text();
-      })
-      .then((imageUploadUrl) => {
-        const messageForm = document.getElementById('image-form');
-        messageForm.action = imageUploadUrl;
-        messageForm.classList.remove('my-form');
+function fetchImageURLs() {
+    getBlobstoreUrl();
+    fetch('/image-data').then(response => response.json()).then((images) => {
+        const imagesContainer = document.getElementById('all-images');
+        imagesContainer.innerHTML = '';
+        images.forEach((image) => {
+            imagesContainer.appendChild(createDivImageElement(image));
+        });
       });
+}
+
+function getBlobstoreUrl() {
+    fetch('/blog').then((response) => {
+        return response.text();
+    })
+    .then((imageUrl) => {
+        const container = document.getElementById('image-form');
+        container.action = imageUrl;
+        container.classList.remove('hidden');
+      });
+}
+
+
+/**i thought i was allowed to have two promises/fetch functions? */
+
+/**async function displayImages() {
+    fetch('/data').then(response => response.json()).then((myObject) => {
+        const commentsContainer = document.getElementById('recent-comments');
+        myObject.forEach((comment) => {
+            commentsContainer.appendChild(createDivElement(comment.name, comment.comment));
+        });
+});
+}*/
+
+function createDivImageElement(image) {
+  const divElement = document.createElement('div');
+  divElement.setAttribute("class", "each-image");
+  divElement.innerHTML = "<img src=\"" + image + "\" />";
+  return divElement;
 }
 

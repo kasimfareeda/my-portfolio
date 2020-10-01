@@ -49,7 +49,7 @@ public class DataServlet extends HttpServlet {
     List<Comment> comments = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
         String name = (String) entity.getProperty("name");
-      String comment = (String) entity.getProperty("comment");
+        String comment = (String) entity.getProperty("comment");
 
       Comment oneComment = new Comment(name, comment);
       comments.add(oneComment);
