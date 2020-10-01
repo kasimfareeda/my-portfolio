@@ -17,7 +17,11 @@ package com.google.sps.servlets;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.gson.Gson;
+import com.google.sps.data.Comment;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,35 +35,41 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-    ArrayList<String> strings = new ArrayList<String>();
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    
+    Query query = new Query("Task");
+    PreparedQuery results = datastore.prepare(query);
+    List<Comment> comments = new ArrayList<>();
+    for (Entity entity : results.asIterable()) {
+        String name = (String) entity.getProperty("name");
+      String comment = (String) entity.getProperty("comment");
+
+      Comment oneComment = new Comment(name, comment);
+      comments.add(oneComment);
+    }
+
+    Gson gson = new Gson();
+
     response.setContentType("application/json;");
-    response.getWriter().println(convertToJson(strings));
+    response.getWriter().println(gson.toJson(comments));
   }
 
 
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
       // Get the input from the form.
+      String name = getParameter(request, "name", "Anonymous");
       String comment = getParameter(request, "comment", "");
-      strings.add(comment);
 
       Entity taskEntity = new Entity("Task");
+      taskEntity.setProperty("name", name);
       taskEntity.setProperty("comment", comment);
 
-      DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
       datastore.put(taskEntity);
 
       // Redirect back to the HTML page.
       response.sendRedirect("/index.html");
-  }
-
-  private String convertToJson(ArrayList<String> strings) {
-    Gson gson = new Gson();
-    String json = gson.toJson(strings);
-    return json;
   }
 
   /**
@@ -68,9 +78,10 @@ public class DataServlet extends HttpServlet {
    */
   private String getParameter(HttpServletRequest request, String name, String defaultValue) {
     String value = request.getParameter(name);
-    if (value == null) {
-      return defaultValue;
+    if (value.equals("")) {
+        return defaultValue;
     }
     return value;
   }
 }
+

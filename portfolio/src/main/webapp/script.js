@@ -31,16 +31,17 @@ async function getComment() {
     fetch('/data').then(response => response.json()).then((myObject) => {
         const commentsContainer = document.getElementById('comment-section');
         myObject.forEach((comment) => {
-            console.log(comment);
-            commentsContainer.appendChild(createListElement(comment));
+            console.log(comment.name);
+            console.log(comment.comment);
+            commentsContainer.appendChild(createParagraphElement(comment.name, comment.comment));
         });
 });
 }
 
 /** Creates an <li> element containing text. */
-function createListElement(text) {
-  const liElement = document.createElement('li');
-  liElement.innerText = text;
-  return liElement;
+function createParagraphElement(text1, text2) {
+  const pElement = document.createElement('P');
+  pElement.innerText = text1 + " left a comment: " + text2;
+  return pElement;
 }
 
