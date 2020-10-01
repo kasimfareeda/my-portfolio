@@ -12,36 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/**
- * Adds a random greeting to the page.
- */
-function addRandomGreeting() {
-  const greetings =
-      ['I am 18 years old!', 'I love cats!', 'I have a heartshaped birthmark！', 'I love reading books!', 'My favorite color is pink!'];
-
-  // Pick a random greeting.
-  const greeting = greetings[Math.floor(Math.random() * greetings.length)];
-
-  // Add it to the page.
-  const greetingContainer = document.getElementById('greeting-container');
-  greetingContainer.innerText = greeting;
-}
-
 async function getComment() {
     fetch('/data').then(response => response.json()).then((myObject) => {
-        const commentsContainer = document.getElementById('comment-section');
+        const commentsContainer = document.getElementById('recent-comments');
         myObject.forEach((comment) => {
-            console.log(comment.name);
-            console.log(comment.comment);
-            commentsContainer.appendChild(createParagraphElement(comment.name, comment.comment));
+            commentsContainer.appendChild(createDivElement(comment.name, comment.comment));
         });
 });
 }
 
-/** Creates an <li> element containing text. */
-function createParagraphElement(text1, text2) {
-  const pElement = document.createElement('P');
-  pElement.innerText = text1 + " left a comment: " + text2;
-  return pElement;
+/** Creates a <div> element containing text. */
+function createDivElement(text1, text2) {
+  const divElement = document.createElement('div');
+  divElement.setAttribute("class", "each-comment");
+  var words = " left a comment: ";
+  divElement.innerText = text1 + words + text2;
+  return divElement;
 }
 

@@ -64,18 +64,22 @@
               </div>
           </div>
       </div>
+      <h4 class="comment-title">Comments</h4>
       <div id="comment-section">
           <form action="/data" method="POST" target="_self">
               <p> I hope you enjoyed looking through my portfolio. Please leave a comment! </p>
-              <label>Name:</label><br>
-              <textarea name="name"></textarea>
-              <br><br>
-              <label>Comment:</label><br>
-              <textarea name="comment"></textarea>
-              <br><br>
-              <input type="submit" />
+              <label>Name</label><br>
+              <textarea name="name" placeholder="Type your name"></textarea>
+              <br>
+              <label>Comment</label><br>
+              <textarea name="comment" placeholder="Type your comment" required></textarea>
+              <br>
+              <input type="submit" class="submit-button"/>
               <br><br>
           </form>
+      </div>
+      <div id="recent-comments">
+          <h4>Recent comments</h4>
       </div>
       <a id="section3"><div class="contact"></a>
           <h4 class="contact-text">Contact</h4>
